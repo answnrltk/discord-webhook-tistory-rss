@@ -65,7 +65,7 @@ exports.handler = async (event) => {
 
         // 배열을 한번에 웹훅으로 보낸다.
         if (embeds.length > 0) {
-            for (const webhook of webhookURLs) {
+            for await (const webhook of webhookURLs) {
                 await axios.post(webhook, {
                     "embeds": embeds,
                     "username": "[알림] 카유 티스토리 새 글 업로드",
