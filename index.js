@@ -46,7 +46,7 @@ exports.handler = async (event) => {
         }
 
         const embeds = [];
-        rss.items.reverse().forEach(async (item) => {
+        rss.items.reverse().forEach((item) => {
             const currentPubDate = new Date(item.pubDate[0]);
 
             // 예전에 쓰여진 글이면 아무것도 하지않고 다음 글로 넘어간다.
