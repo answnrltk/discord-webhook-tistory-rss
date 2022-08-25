@@ -1,2 +1,2 @@
-# discord-webhook-tistory-rss
+# discord-webhook-tistory-rss-js
 디스코드 웹훅으로 만든 티스토리 새 글 알림봇
