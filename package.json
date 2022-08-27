@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "open-graph-scraper": "^4.11.1",
     "xml2js": "^0.4.23"
   },
   "description": ""

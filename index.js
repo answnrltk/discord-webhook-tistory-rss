@@ -1,5 +1,6 @@
 const axios = require("axios").default;
 const xml2js = require("xml2js");
+const ogs = require("open-graph-scraper");
 
 const webhookURLs = [
     "웹훅 URL"
@@ -53,13 +54,24 @@ exports.handler = async (event) => {
             if (lastPubDate >= currentPubDate) return;
             lastPubDate = currentPubDate;
 
-            // 새로 쓰여진 글이면 embed 객체로 배열에 넣고
+            // 새로 쓰여진 글이면 OpenGraph 정보를 가져오고
+            const og = await ogs({url: item.link[0], onlyGetOpenGraphInfo: true});
+            const image = og.result.ogImage;
+            const desc = og.result.ogDescription;
+
+            // 그리고 embed 객체로 배열에 넣고 다음 글로 넘어간다.
             const category = (item.category == undefined) ? "" : item.category[0];
             embeds.push({
                 "title": item.title[0],
                 "url": item.link[0],
-                "description": category,
-                "color": 3447003
+                "thumbnail": {
+                    "url": image.url
+                },
+                "description": desc,
+                "color": 3447003,
+                "footer": {
+                    "text": category
+                }
             });
         });
 
