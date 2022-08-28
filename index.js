@@ -47,11 +47,12 @@ exports.handler = async (event) => {
         }
 
         const embeds = [];
-        rss.items.reverse().forEach((item) => {
+        const reverseItems = rss.items.reverse();
+        for await (const item of reverseItems) {
             const currentPubDate = new Date(item.pubDate[0]);
 
             // 예전에 쓰여진 글이면 아무것도 하지않고 다음 글로 넘어간다.
-            if (lastPubDate >= currentPubDate) return;
+            if (lastPubDate >= currentPubDate) continue;
             lastPubDate = currentPubDate;
 
             // 새로 쓰여진 글이면 OpenGraph 정보를 가져오고
@@ -73,7 +74,7 @@ exports.handler = async (event) => {
                     "text": category
                 }
             });
-        });
+        };
 
         // 배열을 한번에 웹훅으로 보낸다.
         if (embeds.length > 0) {
